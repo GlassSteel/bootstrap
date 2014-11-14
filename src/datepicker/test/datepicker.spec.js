@@ -1341,7 +1341,7 @@ describe('datepicker directive', function () {
           var wrapElement = $compile('<div><input ng-model="date" datepicker-popup init-date="initDate" is-open="true"></div>')($rootScope);
           $rootScope.$digest();
           assignElements(wrapElement);
-          $rootScope.date = new Date('April 1, 1982')
+          $rootScope.date = new Date('April 1, 1982');
           $rootScope.initDate = new Date('December 20, 1981');
           $rootScope.$digest();
         });
