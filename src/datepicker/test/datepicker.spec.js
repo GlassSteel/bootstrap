@@ -1295,6 +1295,67 @@ describe('datepicker directive', function () {
       });
     });
 
+    describe('attribute `init-date`', function(){
+      beforeEach(function() {
+        $rootScope.date = null;
+        $rootScope.initDate = new Date('November 9, 1980');
+      });
+
+      describe('when initially set', function(){
+        beforeEach(function() {
+          var wrapElement = $compile('<div><input ng-model="date" datepicker-popup init-date="initDate" is-open="true"></div>')($rootScope);
+          $rootScope.$digest();
+          assignElements(wrapElement);
+        });
+
+        it('does not alter the model', function() {
+          expect($rootScope.date).toBe(null);
+        });
+
+        it('shows the correct title', function() {
+          expect(getTitle()).toBe('November 1980');
+        });
+      });
+
+      describe('when modified before date selected.', function(){
+        beforeEach(function() {
+          var wrapElement = $compile('<div><input ng-model="date" datepicker-popup init-date="initDate" is-open="true"></div>')($rootScope);
+          $rootScope.$digest();
+          assignElements(wrapElement);
+
+          $rootScope.initDate = new Date('December 20, 1981');
+          $rootScope.$digest();
+        });
+
+        it('does not alter the model', function() {
+          expect($rootScope.date).toBe(null);
+        });
+
+        it('shows the correct title', function() {
+          expect(getTitle()).toBe('December 1981');
+        });
+      });
+
+      describe('when modified after date selected.', function(){
+        beforeEach(function() {
+          var wrapElement = $compile('<div><input ng-model="date" datepicker-popup init-date="initDate" is-open="true"></div>')($rootScope);
+          $rootScope.$digest();
+          assignElements(wrapElement);
+          $rootScope.date = new Date('April 1, 1982')
+          $rootScope.initDate = new Date('December 20, 1981');
+          $rootScope.$digest();
+        });
+
+        it('does not alter the model', function() {
+          expect($rootScope.date).toEqual(new Date('April 1, 1982'));
+        });
+
+        it('shows the correct title', function() {
+          expect(getTitle()).toBe('April 1944');
+        });
+      });
+    });
+
     describe('toggles programatically by `open` attribute', function () {
       beforeEach(inject(function() {
         $rootScope.open = true;
