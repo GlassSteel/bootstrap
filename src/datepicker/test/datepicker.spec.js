@@ -1351,7 +1351,7 @@ describe('datepicker directive', function () {
         });
 
         it('shows the correct title', function() {
-          expect(getTitle()).toBe('April 1944');
+          expect(getTitle()).toBe('April 1982');
         });
       });
     });
